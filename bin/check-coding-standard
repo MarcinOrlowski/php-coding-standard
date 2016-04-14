@@ -10,19 +10,18 @@
  * @link      https://github.com/MarcinOrlowski/dotenv-helper
  */
 
-$phpcs = 'vendor/bin/phpcs -n';
+$phpcs = 'vendor/bin/phpcs';
 $ignore = '--ignore=';
-$standard = '--standard=vendor/marcin-orlowski/coding-standard/src/MarcinOrlowski/';
+$standard = '--standard=__DIR__/../coding-standard/MarcinOrlowski/';
 $paths = '';
+$other_phpcs_args = '';
 
 $generate_reports = false;
-$report_style = '';
-$report_summary = '';
-$report_style_xml = '';
+$diff_file = null;
+$display_report_summary = false;
+$phpcs_opts = '';
 
-$display_report_style = false;
-
-$options = getopt('s:r:th');
+$options = getopt('s:r:t:i:o:d:nfh');
 $error = null;
 
 if (isset($options['h'])) {
@@ -30,10 +29,42 @@ if (isset($options['h'])) {
 	echo "Usage: check-coding-standard -s SRC [-r REPORTDIR] [-t]\n\n";
 	echo "      -s - specify source dir(s) to be scanned (required)\n";
 	echo "      -r - optional report directory. If set, style and summary reports will written there\n";
-	echo "      -t - when used generated coding_style.txt report will be echoed. Useful to having it included in CI log\n";
+	echo "      -t - when used generated coding_summary.txt report will be echoed. Useful to having it included in CI log\n";
+	echo "      -i - list of paths or files to be ignored during scanning\n";
+	echo "      -o - this string will be passed directly to sniffer. Use any pgpcs options you want\n";
+	echo "      -d - generate diff file to let you fix sniffed issues (needs diff installed)\n";
+	echo "      -f - by default summary report is shown. Use -f to see full, detailed report\n";
+	echo "      -n - skip warnings\n";
 	die;
 }
 
+if (isset($options['n'])) {
+	$phpcs .= ' -n ';
+}
+
+if (isset($options['i'])) {
+	if ($options['i'] !== false) {
+		$paths = $options['i'];
+	} else {
+		$error = 'Missing -i value. Please provide list of paths/files to ignore';
+	}
+}
+
+if (isset($options['o'])) {
+	if ($options['o'] !== false) {
+		$other_phpcs_args = $options['o'];
+	} else {
+		$error = 'Missing -o value. Please provide string to pass to phpcs';
+	}
+}
+
+if (isset($options['d'])) {
+	if ($options['d'] !== false) {
+		$diff_file = $options['d'];
+	} else {
+		$error = 'Please provide output diff file name to create';
+	}
+}
 
 if (isset($options['s'])) {
 	if ($options['s'] !== false) {
@@ -48,20 +79,16 @@ if (isset($options['s'])) {
 if (isset($options['r'])) {
 	if ($options['r'] !== false) {
 		$generate_reports = true;
-		$report_style = sprintf('--report-file=%s/coding_style.txt --report=full', $options['r']);
+		$report_full = sprintf('--report-file=%s/coding_full.txt --report=full', $options['r']);
 		$report_summary = sprintf('--report-file=%s/coding_summary.txt --report=summary', $options['r']);
-		$report_style_xml = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
+		$report_style = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
 	} else {
 		$error = 'Option -r requires valid target directory for generted reprts';
 	}
 }
 
 if (isset($options['t'])) {
-	if ($generate_reports) {
-		$display_report_style = true;
-	} else {
-		$error = 'To use -t you must enable report generation with -r option too';
-	}
+	$display_report_summary = true;
 }
 
 if ($error !== null) {
@@ -77,17 +104,27 @@ $strings = array('phpcs',
                  'report_style_xml',
                  'report_summary');
 foreach ($strings as $str) {
-	$$str = str_replace('/', DIRECTORY_SEPARATOR, $$str);
+	if (array_key_exists($str, get_defined_vars())) {
+		$$str = str_replace('/', DIRECTORY_SEPARATOR, $$str);
+	}
+}
+
+if ($diff_file !== null) {
+	$report_diff = "--report-diff={$diff_file}";
+	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_diff} {$ignore} {$standard} {$paths}");
 }
 
 if ($generate_reports) {
-	system("{$phpcs} {$report_style} --colors {$ignore} {$standard} {$paths}");
-	system("{$phpcs} {$report_summary} --colors {$ignore} {$standard} {$paths}");
-	system("{$phpcs} {$report_style_xml} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_full} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_summary} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_style} --colors {$ignore} {$standard} {$paths}");
+
+	if ($display_report_summary) {
+		$report_file = isset($options['f']) ? 'coding_full.txt' : 'coding_summary.txt';
+		readfile(sprintf('%s/%s', $options['r'], $report_file));
+	}
 } else {
-	system("{$phpcs} {$report_style} {$ignore} {$standard} {$paths}");
+	$report_type = isset($options['f']) ? 'full' : 'summary';
+	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} --report={$report_type} {$ignore} {$standard} {$paths}");
 }
 
-if ($generate_reports && $display_report_style) {
-	readfile(sprintf('%s/coding_style.txt', $options['r']));
-}
