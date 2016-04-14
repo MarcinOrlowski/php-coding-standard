@@ -101,7 +101,19 @@
     <rule ref="Zend.Files.ClosingTag"/>
 
     <!-- Makes sure that any use of Double Quotes ("") are warranted. -->
-    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage">
+        <exclude name="Squiz.Strings.DoubleQuoteUsage.ContainsVar"/>
+    </rule>
+
+    <!-- Ensures all the breaks and cases are aligned correctly according to their parent switch -->
+    <rule ref="Squiz.ControlStructures.SwitchDeclaration">
+        <exclude name="Squiz.ControlStructures.SwitchDeclaration.CaseIndent"/>
+        <exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent"/>
+        <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultIndent"/>
+    </rule>
+
+    <!-- Verifies that control statements conform to their coding standards -->
+    <rule ref="Squiz.ControlStructures.ControlSignature"/>
 
     <!-- check scope declaration for members and methods -->
     <rule ref="Squiz.Scope.MemberVarScope"/>
