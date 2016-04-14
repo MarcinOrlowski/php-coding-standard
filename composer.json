@@ -1,0 +1,18 @@
+{
+  "name": "marcin-orlowski/coding-standard",
+  "description": "Marcin Orlowski's Code Sniffer coding standard rules",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "version": "5.0.0",
+  "bin": [
+    "bin/check-coding-standard"
+  ],
+  "authors": [
+    {
+      "name": "Marcin Orlowski"
+    }
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^2.6"
+  }
+}
