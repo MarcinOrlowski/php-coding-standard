@@ -3,7 +3,6 @@
   "description": "Marcin Orlowski's PHP Code Sniffer coding standard rules",
   "minimum-stability": "stable",
   "license": "MIT",
-  "version": "5.0.0",
   "bin": [
     "bin/check-coding-standard"
   ],
