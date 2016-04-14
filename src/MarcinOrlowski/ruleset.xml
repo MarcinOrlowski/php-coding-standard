@@ -41,8 +41,8 @@
     <!-- do not make lines too long -->
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="125"/>
-            <property name="absoluteLineLimit" value="132"/>
+            <property name="lineLimit" value="132"/>
+            <property name="absoluteLineLimit" value="150"/>
         </properties>
     </rule>
 
@@ -73,11 +73,11 @@
     <rule ref="Generic.NamingConventions.ConstructorName"/>
 
     <!-- check method complexity -->
-    <rule ref="Generic.Metrics.CyclomaticComplexity">
-        <properties>
-            <property name="absoluteComplexity" value="25"/>
-        </properties>
-    </rule>
+    <!--<rule ref="Generic.Metrics.CyclomaticComplexity">-->
+    <!--<properties>-->
+    <!--<property name="absoluteComplexity" value="25"/>-->
+    <!--</properties>-->
+    <!--</rule>-->
 
     <!-- no spaces after cast -->
     <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
@@ -147,7 +147,7 @@
     <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
 
     <!-- Warn about commented out code. -->
-    <rule ref="Squiz.PHP.CommentedOutCode"/>
+    <!--<rule ref="Squiz.PHP.CommentedOutCode"/>-->
 
     <!-- A Sniff to enforce the use of IDENTICAL type operators rather than EQUAL operators. -->
     <!--<rule ref="Squiz.Operators.ComparisonOperatorUsage"/>-->
