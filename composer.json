@@ -1,6 +1,6 @@
 {
   "name": "marcin-orlowski/coding-standard",
-  "description": "Marcin Orlowski's Code Sniffer coding standard rules",
+  "description": "Marcin Orlowski's PHP Code Sniffer coding standard rules",
   "minimum-stability": "stable",
   "license": "MIT",
   "version": "5.0.0",
