@@ -158,10 +158,16 @@
     <!-- check PHPDocs for files and functions -->
     <!--<rule ref="Squiz.Commenting.FileComment"/>-->
     <rule ref="Squiz.Commenting.ClassComment"/>
-    <rule ref="Squiz.Commenting.FunctionComment"/>
+    <rule ref="Squiz.Commenting.FunctionComment">
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+    </rule>
 
     <!-- Verifies that a @throws tag exists for a function that throws exceptions. -->
-    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
+        <exclude name="Squiz.Commenting.FunctionCommentThrowTag.ThrowsNotCapital"/>
+        <exclude name="Squiz.Commenting.FunctionCommentThrowTag.ThrowsNoFullStop"/>
+    </rule>
 
     <!-- check if file name matches class name -->
     <rule ref="Squiz.Classes.ClassFileName"/>
