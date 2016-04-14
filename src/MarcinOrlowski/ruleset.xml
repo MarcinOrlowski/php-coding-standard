@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<ruleset name="MarcinOrlowski">
+    <description>Marcin Orlowski's PHP coding standard</description>
+
+    <!-- only long tags are allowed -->
+    <rule ref="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
+
+    <!-- PHP code MUST use only UTF-8 without BOM. -->
+    <rule ref="Generic.Files.ByteOrderMark"/>
+
+    <!-- No code debt! -->
+    <rule ref="Generic.Commenting.Todo"/>
+
+    <!-- camel case for classes and methods -->
+    <rule ref="Squiz.Classes.ValidClassName"/>
+    <rule ref="PSR1.Methods.CamelCapsMethodName"/>
+
+    <!-- snake case variable names are checked by Variables/SnakeCaseVariableSniff -->
+
+    <!-- Visibility MUST be declared on all methods. -->
+    <rule ref="Squiz.Scope.MethodScope"/>
+
+    <!-- detect unused function parameters -->
+    <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+
+    <!-- Class constants MUST be declared in all upper case with underscore separators. -->
+    <rule ref="Generic.NamingConventions.UpperCaseConstantName"/>
+
+    <!-- detect empty code blocks -->
+    <rule ref="Generic.CodeAnalysis.EmptyStatement"/>
+
+    <!-- detect multiple statements in single line -->
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+
+    <!-- function opening bracket must be in next line -->
+    <rule ref="Generic.Functions.OpeningFunctionBraceBsdAllman"/>
+
+    <!-- The body of each structure MUST be enclosed by braces. This standardizes how the structures look, and reduces the likelihood of introducing errors as new lines get added to the body. -->
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+
+    <!-- do not make lines too long -->
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="125"/>
+            <property name="absoluteLineLimit" value="132"/>
+        </properties>
+    </rule>
+
+    <!-- only LFs allowed -->
+    <rule ref="Generic.Files.LineEndings">
+        <properties>
+            <property name="eolChar" value="\n"/>
+        </properties>
+    </rule>
+
+    <!-- forbidden functions -->
+    <rule ref="Generic.PHP.ForbiddenFunctions">
+        <properties>
+            <property name="forbiddenFunctions" type="array" value="delete=>unset,print=>echo,create_function=>null,eval=>null"/>
+        </properties>
+    </rule>
+
+    <!-- no useless overriding -->
+    <rule ref="Generic.CodeAnalysis.UselessOverridingMethod"/>
+
+    <!-- no jumbled incrementer in nested loops -->
+    <rule ref="Generic.CodeAnalysis.JumbledIncrementer"/>
+
+    <!-- PHP open tag must be first in file -->
+    <rule ref="Generic.PHP.CharacterBeforePHPOpeningTag"/>
+
+    <!-- no PHP4 style constructor names -->
+    <rule ref="Generic.NamingConventions.ConstructorName"/>
+
+    <!-- check method complexity -->
+    <rule ref="Generic.Metrics.CyclomaticComplexity">
+        <properties>
+            <property name="absoluteComplexity" value="25"/>
+        </properties>
+    </rule>
+
+    <!-- no spaces after cast -->
+    <rule ref="Generic.Formatting.NoSpaceAfterCast"/>
+
+    <!-- checks alignment of assignments -->
+    <!--<rule ref="Generic.Formatting.MultipleStatementAlignment"/>-->
+
+    <!-- Ensures each statement is on a line by itself -->
+    <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
+
+    <rule ref="Generic.Files.OneInterfacePerFile"/>
+    <rule ref="Generic.Files.OneClassPerFile"/>
+    <rule ref="Generic.Files.OneTraitPerFile"/>
+
+    <rule ref="Generic.Files.EndFileNewline"/>
+
+    <!-- no BOM -->
+    <rule ref="Generic.Files.ByteOrderMark"/>
+
+    <!-- no PHP closing tag allowed -->
+    <rule ref="Zend.Files.ClosingTag"/>
+
+    <!-- Makes sure that any use of Double Quotes ("") are warranted. -->
+    <rule ref="Squiz.Strings.DoubleQuoteUsage"/>
+
+    <!-- check scope declaration for members and methods -->
+    <rule ref="Squiz.Scope.MemberVarScope"/>
+    <rule ref="Squiz.Scope.MethodScope"/>
+
+    <!-- Checks for usage of "$this" in static methods -->
+    <rule ref="Squiz.Scope.StaticThisUsage"/>
+
+    <!-- Ensures all calls to inbuilt PHP functions are lowercase -->
+    <rule ref="Squiz.PHP.LowercasePHPFunctions"/>
+
+    <!-- no code that can never been executed. -->
+    <rule ref="Squiz.PHP.NonExecutableCode"/>
+
+    <!-- Ensures that functions within functions are never used. -->
+    <rule ref="Squiz.PHP.InnerFunctions"/>
+
+    <!-- no Heredoc -->
+    <rule ref="Squiz.PHP.Heredoc"/>
+
+    <!-- use of global is not allowed -->
+    <rule ref="Squiz.PHP.GlobalKeyword"/>
+
+    <!-- The use of eval() is discouraged -->
+    <rule ref="Squiz.PHP.Eval"/>
+
+    <!-- Bans the use of size-based (count, sizeof, strlen) functions in loop conditions -->
+    <rule ref="Squiz.PHP.DisallowSizeFunctionsInLoops"/>
+
+    <!-- Ensures that there is only one value assignment on a line and is first thing in line -->
+    <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
+
+    <!-- Warn about commented out code. -->
+    <rule ref="Squiz.PHP.CommentedOutCode"/>
+
+    <!-- A Sniff to enforce the use of IDENTICAL type operators rather than EQUAL operators. -->
+    <!--<rule ref="Squiz.Operators.ComparisonOperatorUsage"/>-->
+
+    <!-- Checks to ensure that the logical operators 'and' and 'or' are not used. -->
+    <rule ref="Squiz.Operators.ValidLogicalOperators"/>
+
+    <!-- check PHPDocs for files and functions -->
+    <!--<rule ref="Squiz.Commenting.FileComment"/>-->
+    <rule ref="Squiz.Commenting.ClassComment"/>
+    <rule ref="Squiz.Commenting.FunctionComment"/>
+
+    <!-- Verifies that a @throws tag exists for a function that throws exceptions. -->
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
+
+    <!-- check if file name matches class name -->
+    <rule ref="Squiz.Classes.ClassFileName"/>
+
+
+    <!-- Warns when function values are returned directly -->
+    <!--<rule ref="MySource.PHP.ReturnFunctionValue"/>-->
+
+    <!-- Ensures this is not assigned to any other var but self -->
+    <rule ref="MySource.Objects.AssignThis"/>
+
+    <!-- Warns about the use of debug code -->
+    <rule ref="MySource.Debug.DebugCode"/>
+
+    <!-- Checks for empty Catch clause. Catch clause must at least have comment -->
+    <rule ref="Squiz.Commenting.EmptyCatchComment"/>
+
+    <!-- Tests that the stars in a doc comment align correctly -->
+    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
+
+    <!-- Parses and verifies the variable doc comment. -->
+    <rule ref="Squiz.Commenting.VariableComment"/>
+</ruleset>
