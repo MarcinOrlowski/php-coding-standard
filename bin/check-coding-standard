@@ -1,6 +1,15 @@
 #!/usr/bin/env php
 <?php
 
+/**
+ * Marcin Orlowski's Coding standard checker
+ *
+ * @author    Marcin Orlowski <mail (#) marcinorlowski (.) com>
+ * @copyright 2016 Marcin Orlowski
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      https://github.com/MarcinOrlowski/dotenv-helper
+ */
+
 $phpcs = 'vendor/bin/phpcs -n';
 $ignore = '--ignore=';
 $standard = '--standard=vendor/marcin-orlowski/coding-standard/src/MarcinOrlowski/';

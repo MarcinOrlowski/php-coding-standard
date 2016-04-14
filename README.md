@@ -13,3 +13,9 @@ Use composer to install this package:
 
 Package installs `check-coding-standard` script in `vendor/bin` folder.
 Use `-h` to see all available options.
+
+
+## License ##
+
+* Created by Marcin Orlowski
+* Response Builder is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
