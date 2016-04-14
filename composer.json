@@ -12,6 +12,7 @@
     }
   ],
   "require": {
+    "php": ">=5.1.2",
     "squizlabs/php_codesniffer": "^2.6"
   }
 }
