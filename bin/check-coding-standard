@@ -4,7 +4,7 @@
 $phpcs = 'vendor/bin/phpcs -n';
 $ignore = '--ignore=';
 $standard = '--standard=vendor/marcin-orlowski/coding-standard/src/MarcinOrlowski/';
-$paths='';
+$paths = '';
 
 $generate_reports = false;
 $report_style = '';
@@ -17,63 +17,68 @@ $options = getopt('s:r:th');
 $error = null;
 
 if (isset($options['h'])) {
-    echo "\n";
-    echo "Usage: check-coding-standard -s SRC [-r REPORTDIR] [-t]\n\n";
-    echo "      -s - specify source dir(s) to be scanned (required)\n";
-    echo "      -r - optional report directory. If specified, coding_style.txt, coding_style.xml and coding_summary.txt reports will written there\n";
-    echo "      -t - when used generated coding_style.txt report will be echoed. Useful to having it included in CI log\n";
-    die;
+	echo "\n";
+	echo "Usage: check-coding-standard -s SRC [-r REPORTDIR] [-t]\n\n";
+	echo "      -s - specify source dir(s) to be scanned (required)\n";
+	echo "      -r - optional report directory. If set, style and summary reports will written there\n";
+	echo "      -t - when used generated coding_style.txt report will be echoed. Useful to having it included in CI log\n";
+	die;
 }
 
 
 if (isset($options['s'])) {
-    if ($options['s'] !== false) {
-        $paths = $options['s'];
-    } else {
-        $error = "Option -s require source dir(s) to be checked";
-    }
+	if ($options['s'] !== false) {
+		$paths = $options['s'];
+	} else {
+		$error = 'Option -s require source dir(s) to be checked';
+	}
 } else {
-    $error = "Missing source dir(s)";
+	$error = 'Missing source dir(s)';
 }
 
 if (isset($options['r'])) {
-    if ($options['r'] !== false) {
-        $generate_reports = true;
-        $report_style = sprintf('--report-file=%s/coding_style.txt --report=full', $options['r']);
-        $report_summary = sprintf('--report-file=%s/coding_summary.txt --report=summary', $options['r']);
-        $report_style_xml = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
-    } else {
-        $error = "Option -r requires valid target directory for generted reprts";
-    }
+	if ($options['r'] !== false) {
+		$generate_reports = true;
+		$report_style = sprintf('--report-file=%s/coding_style.txt --report=full', $options['r']);
+		$report_summary = sprintf('--report-file=%s/coding_summary.txt --report=summary', $options['r']);
+		$report_style_xml = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
+	} else {
+		$error = 'Option -r requires valid target directory for generted reprts';
+	}
 }
 
 if (isset($options['t'])) {
-    if ($generate_reports) {
-        $display_report_style = true;
-    } else {
-        $error = "To use -t you must enable report generation with -r option too";
-    }
+	if ($generate_reports) {
+		$display_report_style = true;
+	} else {
+		$error = 'To use -t you must enable report generation with -r option too';
+	}
 }
 
 if ($error !== null) {
-    echo "Error: {$error}\n";
-    echo "Use -h for help";
-    die();
+	echo "Error: {$error}\n";
+	echo 'Use -h for help';
+	die();
 }
 
-$strings = array('phpcs', 'ignore', 'standard', 'report_style', 'report_style_xml', 'report_summary');
-foreach($strings as $str) {
-    $$str = str_replace('/', DIRECTORY_SEPARATOR, $$str);
+$strings = array('phpcs',
+                 'ignore',
+                 'standard',
+                 'report_style',
+                 'report_style_xml',
+                 'report_summary');
+foreach ($strings as $str) {
+	$$str = str_replace('/', DIRECTORY_SEPARATOR, $$str);
 }
 
 if ($generate_reports) {
-    system("{$phpcs} {$report_style} --colors {$ignore} {$standard} {$paths}");
-    system("{$phpcs} {$report_summary} --colors {$ignore} {$standard} {$paths}");
-    system("{$phpcs} {$report_style_xml} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$report_style} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$report_summary} --colors {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$report_style_xml} --colors {$ignore} {$standard} {$paths}");
 } else {
-    system("{$phpcs} {$report_style} {$ignore} {$standard} {$paths}");
+	system("{$phpcs} {$report_style} {$ignore} {$standard} {$paths}");
 }
 
 if ($generate_reports && $display_report_style) {
-    readfile(sprintf('%s/coding_style.txt', $options['r']));
+	readfile(sprintf('%s/coding_style.txt', $options['r']));
 }
