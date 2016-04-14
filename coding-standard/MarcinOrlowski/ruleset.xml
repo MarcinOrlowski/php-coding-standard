@@ -161,13 +161,16 @@
     <rule ref="Squiz.Commenting.FunctionComment">
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentNotCapital"/>
         <exclude name="Squiz.Commenting.FunctionComment.ParamCommentFullStop"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ThrowsNotCapital"/>
+        <exclude name="Squiz.Commenting.FunctionComment.ThrowsNoFullStop"/>
+        <exclude name="Squiz.Commenting.FunctionComment.EmptyThrows"/>
+    </rule>
+    <rule ref="Squiz.Commenting.FunctionComment.TypeHintMissing">
+        <type>warning</type>
     </rule>
 
     <!-- Verifies that a @throws tag exists for a function that throws exceptions. -->
-    <rule ref="Squiz.Commenting.FunctionCommentThrowTag">
-        <exclude name="Squiz.Commenting.FunctionCommentThrowTag.ThrowsNotCapital"/>
-        <exclude name="Squiz.Commenting.FunctionCommentThrowTag.ThrowsNoFullStop"/>
-    </rule>
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag"/>
 
     <!-- check if file name matches class name -->
     <rule ref="Squiz.Classes.ClassFileName"/>
