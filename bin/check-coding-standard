@@ -27,7 +27,7 @@ $error = null;
 if (isset($options['h'])) {
 	echo "\n";
 	echo "Usage: check-coding-standard -s SRC [-r REPORTDIR] [-t]\n\n";
-	echo "      -s - specify source dir(s) to be scanned (required)\n";
+	echo "      -s - specify source dir(s) or files to be scanned (required)\n";
 	echo "      -r - optional report directory. If set, style and summary reports will written there\n";
 	echo "      -t - when used generated coding_summary.txt report will be echoed. Useful to having it included in CI log\n";
 	echo "      -i - list of paths or files to be ignored during scanning\n";
@@ -35,6 +35,7 @@ if (isset($options['h'])) {
 	echo "      -d - generate diff file to let you fix sniffed issues (needs diff installed)\n";
 	echo "      -f - by default summary report is shown. Use -f to see full, detailed report\n";
 	echo "      -n - skip warnings\n";
+	echo "\n";
 	die;
 }
 
