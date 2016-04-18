@@ -12,7 +12,7 @@
 
 $phpcs = 'vendor/bin/phpcs';
 $ignore = '--ignore=';
-$standard = '--standard=__DIR__/../coding-standard/MarcinOrlowski/';
+$standard = sprintf('--standard=%s/../coding-standard/MarcinOrlowski/', __DIR__);
 $paths = '';
 $other_phpcs_args = '';
 
