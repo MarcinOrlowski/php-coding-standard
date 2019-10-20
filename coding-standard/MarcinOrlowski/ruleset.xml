@@ -146,18 +146,13 @@
     <rule ref="Squiz.PHP.DisallowMultipleAssignments"/>
 
     <!-- Warn about commented out code. -->
-    <!--<rule ref="Squiz.PHP.CommentedOutCode"/>-->
+    <rule ref="Squiz.PHP.CommentedOutCode"/>
 
     <!-- A Sniff to enforce the use of IDENTICAL type operators rather than EQUAL operators. -->
     <!--<rule ref="Squiz.Operators.ComparisonOperatorUsage"/>-->
 
     <!-- Checks to ensure that the logical operators 'and' and 'or' are not used. -->
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>
-
-    <!-- check PHPDocs for files and functions -->
-    <!--<rule ref="Squiz.Commenting.FileComment"/>-->
-    <rule ref="Squiz.Commenting.ClassComment"/>
-
 
     <!-- modified Squiz.Commenting.FunctionComment sniff, that allows "bool" and "int" -->
     <rule ref="MarcinOrlowski.Commenting.FunctionComment">
