@@ -41,7 +41,7 @@
     <rule ref="Generic.Files.LineLength">
         <properties>
             <property name="lineLimit" value="132"/>
-            <property name="absoluteLineLimit" value="150"/>
+            <property name="absoluteLineLimit" value="132"/>
         </properties>
     </rule>
 
@@ -93,6 +93,14 @@
 
     <rule ref="Generic.Files.EndFileNewline"/>
 
+    <!-- checks that two strings using the same quoting style are not concatenated -->
+    <rule ref="Generic.Strings.UnnecessaryStringConcat">
+        <properties>
+            <!-- needed to ensure multiline strings won't trigger this -->
+            <property name="allowMultiline" value="true" />
+        </properties>
+    </rule>
+
     <!-- no BOM -->
     <rule ref="Generic.Files.ByteOrderMark"/>
 
@@ -109,6 +117,15 @@
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.CaseIndent"/>
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.BreakIndent"/>
         <exclude name="Squiz.ControlStructures.SwitchDeclaration.DefaultIndent"/>
+    </rule>
+
+    <!-- enforces is the padding around concatenation operators -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <!-- Allows newline around a '.' operator (+ any required padding) -->
+            <property name="ignoreNewlines" value="true" />
+        </properties>
     </rule>
 
     <!-- Verifies that control statements conform to their coding standards -->
