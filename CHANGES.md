@@ -1,6 +1,6 @@
 ## CHANGE LOG ##
 
- * 2.0.0 (2019-10-19)
+ * 1.3.0 (2019-10-19)
    * Minimum PHP version is 5.6 now.
    * Changes in rules:
       - Removed `Squiz.Commenting.ClassComment`,
