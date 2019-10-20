@@ -2,7 +2,6 @@
   "name": "marcin-orlowski/coding-standard",
   "description": "Marcin Orlowski's PHP Code Sniffer coding standard rules",
   "minimum-stability": "stable",
-  "version": "v1.3.0",
   "keywords": [
     "php",
     "codesniffer",
