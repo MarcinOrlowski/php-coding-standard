@@ -6,4 +6,4 @@
       - Added `Squiz.PHP.CommentedOutCode`,
       - `absoluteLineLimit` shortened to 132,
       - Added `Squiz.Strings.ConcatenationSpacing`
-   
+
