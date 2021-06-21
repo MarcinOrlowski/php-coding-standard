@@ -29,5 +29,5 @@
 
 ## License ##
 
- * Written and copyrighted &copy;2016-2019 by Marcin Orlowski <mail (#) marcinorlowski (.) com>
+ * Written and copyrighted &copy;2016-2021 by Marcin Orlowski <mail (#) marcinorlowski (.) com>
  * Coding Standard package is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
