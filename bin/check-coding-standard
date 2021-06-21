@@ -5,9 +5,9 @@
  * Marcin Orlowski's Coding standard checker
  *
  * @author    Marcin Orlowski <mail (#) marcinorlowski (.) com>
- * @copyright 2016 Marcin Orlowski
+ * @copyright 2016-2021 Marcin Orlowski
  * @license   http://www.opensource.org/licenses/mit-license.php MIT
- * @link      https://github.com/MarcinOrlowski/dotenv-helper
+ * @link      https://github.com/MarcinOrlowski/coding-standard
  */
 
 $phpcs = 'vendor/bin/phpcs';
@@ -23,6 +23,15 @@ $phpcs_opts = '';
 
 $options = getopt('s:r:t:i:o:d:nfh');
 $error = null;
+
+function runCs($cmd) {
+	$rc = 0;
+	system($cmd, &$rc);
+	if ($rc != 0) {
+		exit($rc);
+	}
+}
+
 
 if (isset($options['h'])) {
 	echo "\n";
@@ -95,7 +104,7 @@ if (isset($options['t'])) {
 if ($error !== null) {
 	echo "Error: {$error}\n";
 	echo 'Use -h for help';
-	die();
+	exit(1);
 }
 
 $strings = array('phpcs',
@@ -112,13 +121,13 @@ foreach ($strings as $str) {
 
 if ($diff_file !== null) {
 	$report_diff = "--report-diff={$diff_file}";
-	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_diff} {$ignore} {$standard} {$paths}");
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_diff} {$ignore} {$standard} {$paths}", &$rc);
 }
 
 if ($generate_reports) {
-	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_full} --colors {$ignore} {$standard} {$paths}");
-	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_summary} --colors {$ignore} {$standard} {$paths}");
-	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_style} --colors {$ignore} {$standard} {$paths}");
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_full} --colors {$ignore} {$standard} {$paths}");
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_summary} --colors {$ignore} {$standard} {$paths}");
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_style} --colors {$ignore} {$standard} {$paths}");
 
 	if ($display_report_summary) {
 		$report_file = isset($options['f']) ? 'coding_full.txt' : 'coding_summary.txt';
@@ -126,6 +135,6 @@ if ($generate_reports) {
 	}
 } else {
 	$report_type = isset($options['f']) ? 'full' : 'summary';
-	system("{$phpcs} {$phpcs_opts} {$other_phpcs_args} --report={$report_type} {$ignore} {$standard} {$paths}");
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} --report={$report_type} {$ignore} {$standard} {$paths}");
 }
 
