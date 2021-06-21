@@ -172,18 +172,18 @@
     <rule ref="Squiz.Operators.ValidLogicalOperators"/>
 
     <!-- modified Squiz.Commenting.FunctionComment sniff, that allows "bool" and "int" -->
-    <rule ref="MarcinOrlowski.Commenting.FunctionComment">
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.ScalarTypeHintMissing"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.ParamCommentNotCapital"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.ParamCommentFullStop"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.MissingParamComment"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.ThrowsNotCapital"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.ThrowsNoFullStop"/>
-        <exclude name="MarcinOrlowski.Commenting.FunctionComment.EmptyThrows"/>
-    </rule>
-    <rule ref="MarcinOrlowski.Commenting.FunctionComment.TypeHintMissing">
-        <type>warning</type>
-    </rule>
+<!--    <rule ref="Squiz.Commenting.FunctionComment">-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.ScalarTypeHintMissing"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.ParamCommentNotCapital"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.ParamCommentFullStop"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.MissingParamComment"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.ThrowsNotCapital"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.ThrowsNoFullStop"/>-->
+<!--        <exclude name="Squiz.Sniffs.Commenting.FunctionComment.EmptyThrows"/>-->
+<!--    </rule>-->
+<!--    <rule ref="MarcinOrlowski.Commenting.FunctionComment.TypeHintMissing">-->
+<!--        <type>warning</type>-->
+<!--    </rule>-->
 
 
     <!-- Verifies that a @throws tag exists for a function that throws exceptions. -->
