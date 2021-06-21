@@ -10,8 +10,12 @@
  * </code>
  */
 
-// @codingStandardsIgnoreFile
-class MarcinOrlowski_Sniffs_Commenting_DisallowHashCommentsSniff implements PHP_CodeSniffer_Sniff
+namespace MarcinOrlowski\Sniffs\Commenting;
+
+use \PHP_CodeSniffer\Sniffs\Sniff;
+use \PHP_CodeSniffer\Files\File;
+
+class DisallowHashCommentsSniff implements Sniff
 {
 	/**
 	 * Returns the token types that this sniff is interested in.
@@ -20,27 +24,25 @@ class MarcinOrlowski_Sniffs_Commenting_DisallowHashCommentsSniff implements PHP_
 	 */
 	public function register()
 	{
-		return array(T_COMMENT);
+		return [T_COMMENT];
 	}
-
 
 	/**
 	 * Processes the tokens that this sniff is interested in.
 	 *
-	 * @param PHP_CodeSniffer_File $phpcs_file The file where the token was found.
-	 * @param int                  $stack_ptr  The position in the stack where
-	 *                                         the token was found.
+	 * @param PHP_CodeSniffer\Files\File $phpcs_file The file where the token was found.
+	 * @param int                        $stack_ptr  The position in the stack where
+	 *                                               the token was found.
 	 *
 	 * @return void
 	 */
-	public function process(PHP_CodeSniffer_File $phpcs_file, $stack_ptr)
+	public function process(File $phpcs_file, $stack_ptr)
 	{
 		$tokens = $phpcs_file->getTokens();
-		if( $tokens[ $stack_ptr ]['content']{0} === '#' ) {
+		if ($tokens[ $stack_ptr ]['content'][0] === '#') {
 			$error = 'Hash comments are prohibited; found %s';
-			$data = array(trim($tokens[ $stack_ptr ]['content']));
+			$data = [trim($tokens[ $stack_ptr ]['content'])];
 			$phpcs_file->addError($error, $stack_ptr, 'Found', $data);
 		}
 	}
-
 }
