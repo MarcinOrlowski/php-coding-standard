@@ -24,19 +24,26 @@ $phpcs_opts = '';
 $options = getopt('s:r:t:i:o:d:nfh');
 $error = null;
 
-function runCs($cmd) {
+function runCs(string $cmd): void
+{
 	$rc = 0;
-	system($cmd, &$rc);
+	system($cmd, $rc);
 	if ($rc != 0) {
 		exit($rc);
 	}
 }
 
+function abort(string $msg = 'Aborted', int $rc = 1): void
+{
+	echo "*** ${msg}\n";
+	exit($rc);
+}
 
-if (isset($options['h'])) {
+function showHelp(): void
+{
 	echo "\n";
 	echo "Usage: check-coding-standard -s SRC [-r REPORTDIR] [-t]\n\n";
-	echo "      -s - specify source dir(s) or files to be scanned (required)\n";
+	echo "      -s - specify source dir or dirs (space separated) or files to be scanned (required)\n";
 	echo "      -r - optional report directory. If set, style and summary reports will written there\n";
 	echo "      -t - when used generated coding_summary.txt report will be echoed. Useful to having it included in CI log\n";
 	echo "      -i - list of paths or files to be ignored during scanning\n";
@@ -45,7 +52,11 @@ if (isset($options['h'])) {
 	echo "      -f - by default summary report is shown. Use -f to see full, detailed report\n";
 	echo "      -n - skip warnings\n";
 	echo "\n";
-	die;
+}
+
+if (isset($options['h'])) {
+	showHelp();
+	exit(0);
 }
 
 if (isset($options['n'])) {
@@ -53,66 +64,57 @@ if (isset($options['n'])) {
 }
 
 if (isset($options['i'])) {
-	if ($options['i'] !== false) {
-		$paths = $options['i'];
-	} else {
-		$error = 'Missing -i value. Please provide list of paths/files to ignore';
+	if (!$options['i']) {
+		abort('Missing -i value. Please provide list of paths/files to ignore');
 	}
+	$paths = $options['i'];
 }
 
 if (isset($options['o'])) {
-	if ($options['o'] !== false) {
-		$other_phpcs_args = $options['o'];
-	} else {
-		$error = 'Missing -o value. Please provide string to pass to phpcs';
+	if (!$options['o']) {
+		abort('Missing -o value. Please provide string to pass to phpcs');
 	}
+	$other_phpcs_args = $options['o'];
 }
 
 if (isset($options['d'])) {
-	if ($options['d'] !== false) {
-		$diff_file = $options['d'];
-	} else {
-		$error = 'Please provide output diff file name to create';
+	if (!$options['d']) {
+		abort('Please provide output diff file name to create');
 	}
+	$diff_file = $options['d'];
 }
 
 if (isset($options['s'])) {
-	if ($options['s'] !== false) {
-		$paths = $options['s'];
-	} else {
-		$error = 'Option -s require source dir(s) to be checked';
+	if (!$options['s']) {
+		abort('Option -s require source dir(s) to be checked');
 	}
+	$paths = $options['s'];
 } else {
-	$error = 'Missing source dir(s)';
+	abort('Missing source dir(s)');
 }
 
 if (isset($options['r'])) {
-	if ($options['r'] !== false) {
-		$generate_reports = true;
-		$report_full = sprintf('--report-file=%s/coding_full.txt --report=full', $options['r']);
-		$report_summary = sprintf('--report-file=%s/coding_summary.txt --report=summary', $options['r']);
-		$report_style = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
-	} else {
-		$error = 'Option -r requires valid target directory for generted reprts';
+	if (!$options['r']) {
+		abort('Option -r requires valid target directory for generted reprts');
 	}
+	$generate_reports = true;
+	$report_full = sprintf('--report-file=%s/coding_full.txt --report=full', $options['r']);
+	$report_summary = sprintf('--report-file=%s/coding_summary.txt --report=summary', $options['r']);
+	$report_style = sprintf('--report-file=%s/coding_style.xml --report=checkstyle', $options['r']);
 }
 
 if (isset($options['t'])) {
 	$display_report_summary = true;
 }
 
-if ($error !== null) {
-	echo "Error: {$error}\n";
-	echo 'Use -h for help';
-	exit(1);
-}
-
-$strings = array('phpcs',
-                 'ignore',
-                 'standard',
-                 'report_style',
-                 'report_style_xml',
-                 'report_summary');
+$strings = [
+	'phpcs',
+	'ignore',
+	'standard',
+	'report_style',
+	'report_style_xml',
+	'report_summary',
+];
 foreach ($strings as $str) {
 	if (array_key_exists($str, get_defined_vars())) {
 		$$str = str_replace('/', DIRECTORY_SEPARATOR, $$str);
@@ -121,7 +123,7 @@ foreach ($strings as $str) {
 
 if ($diff_file !== null) {
 	$report_diff = "--report-diff={$diff_file}";
-	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_diff} {$ignore} {$standard} {$paths}", &$rc);
+	runCs("{$phpcs} {$phpcs_opts} {$other_phpcs_args} {$report_diff} {$ignore} {$standard} {$paths}");
 }
 
 if ($generate_reports) {

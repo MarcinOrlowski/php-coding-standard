@@ -1,5 +1,8 @@
 ## CHANGE LOG ##
 
+ * 2.1.0 (2021-06-21)
+   * Added proper CS' return code handling
+
  * 2.0.1 (2021-06-21)
    * Dropped PHP requirement to v7.2+
  
