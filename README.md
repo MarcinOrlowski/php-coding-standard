@@ -13,9 +13,14 @@
 
 ## Command line ##
 
- Package installs `check-coding-standard` script in `vendor/bin` folder.
+ Package installs `check-coding-standard` wrapper script in `vendor/bin` folder.
  Use `-h` to see all available options.
 
+ Alternatively, use standard directly:
+
+```bash
+$ vendor/bin/phpcs -s --standard=vendor/marcin-orlowski/coding-standard/coding-standard/MarcinOrlowski/ <PATH>
+```
 
 ## Using standard with PHP Storm / InteliJ ##
 
