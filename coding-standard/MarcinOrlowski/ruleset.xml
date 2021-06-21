@@ -2,6 +2,18 @@
 <ruleset name="MarcinOrlowski">
     <description>Marcin Orlowski's PHP coding standard</description>
 
+    <!-- This rule incorrectly deals with chainged calls and do not catch
+         all the unhandled exceptions called methods may throw -->
+    <rule ref="Squiz.Commenting.FunctionCommentThrowTag.WrongNumber">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+    <!-- This rule complains about "bool" used instead of "boolean" which
+         is silly as type hints do not use aliases so it must be "bool"
+         when typehint in code, so mute this one. -->
+    <rule ref="Squiz.Commenting.VariableComment.IncorrectVarType">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
     <!-- only long tags are allowed -->
     <rule ref="Generic.PHP.DisallowShortOpenTag.EchoFound"/>
 
