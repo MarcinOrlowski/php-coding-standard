@@ -1,5 +1,8 @@
 ## CHANGE LOG ##
 
+ * 2.2.0 (2021-06-21)
+   * Excluded two Squiz sniffs from standard that weren't working properly.
+
  * 2.1.0 (2021-06-21)
    * Added proper CS' return code handling
 
